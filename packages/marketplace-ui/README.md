@@ -5,6 +5,7 @@ A modern, accessible UI component library built with [shadcn/ui](https://ui.shad
 ## 🎨 Design System
 
 ### Features
+
 - **Accessibility First**: All components follow WCAG guidelines
 - **Dark/Light Theme**: Built-in theme support with CSS variables
 - **Type Safe**: Full TypeScript support with proper type definitions
@@ -12,6 +13,7 @@ A modern, accessible UI component library built with [shadcn/ui](https://ui.shad
 - **Modern**: Built on latest React patterns and best practices
 
 ### Technology Stack
+
 - **shadcn/ui**: Base component library
 - **Tailwind CSS 3.4.3**: Utility-first CSS framework
 - **Radix UI**: Unstyled, accessible component primitives
@@ -21,6 +23,7 @@ A modern, accessible UI component library built with [shadcn/ui](https://ui.shad
 ## 🚀 Installation & Setup
 
 ### Prerequisites
+
 This library is designed to work within the Nx monorepo. If you're using it externally:
 
 ```bash
@@ -38,7 +41,7 @@ The library uses a shared Tailwind configuration. Ensure your consuming applicat
 module.exports = {
   presets: [require('@mcp-marketplace/ui/tailwind.preset.js')],
   // ... your config
-}
+};
 ```
 
 ### CSS Setup
@@ -53,6 +56,7 @@ Import the base styles in your application:
 ## 🧩 Available Components
 
 ### Form Components
+
 - **Button**: Primary, secondary, outline, ghost variants
 - **Input**: Text, email, password, number inputs
 - **Textarea**: Multi-line text input
@@ -63,6 +67,7 @@ Import the base styles in your application:
 - **Label**: Form field labels
 
 ### Layout Components
+
 - **Card**: Content containers with header, body, footer
 - **Dialog**: Modal dialogs and overlays
 - **Sheet**: Slide-out panels
@@ -71,11 +76,13 @@ Import the base styles in your application:
 - **Separator**: Visual content separation
 
 ### Navigation Components
+
 - **Breadcrumb**: Navigation path display
 - **Pagination**: Page navigation controls
 - **Navigation Menu**: Complex navigation structures
 
 ### Feedback Components
+
 - **Alert**: Status messages and notifications
 - **Toast**: Temporary notification messages
 - **Progress**: Loading and progress indicators
@@ -83,6 +90,7 @@ Import the base styles in your application:
 - **Badge**: Status and category labels
 
 ### Data Display
+
 - **Table**: Data tables with sorting and filtering
 - **Avatar**: User profile images and initials
 - **Tooltip**: Contextual information on hover
@@ -106,18 +114,14 @@ function LoginForm() {
       <Card.Content className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="email">Email</Label>
-          <Input 
-            id="email" 
-            type="email" 
-            placeholder="Enter your email" 
-          />
+          <Input id="email" type="email" placeholder="Enter your email" />
         </div>
         <div className="space-y-2">
           <Label htmlFor="password">Password</Label>
-          <Input 
-            id="password" 
-            type="password" 
-            placeholder="Enter your password" 
+          <Input
+            id="password"
+            type="password"
+            placeholder="Enter your password"
           />
         </div>
       </Card.Content>
@@ -150,13 +154,7 @@ function ThemedButton() {
 ### Complex Layout Example
 
 ```tsx
-import { 
-  Card, 
-  Tabs, 
-  Badge, 
-  Button, 
-  Separator 
-} from '@mcp-marketplace/ui';
+import { Card, Tabs, Badge, Button, Separator } from '@mcp-marketplace/ui';
 
 function Dashboard() {
   return (
@@ -165,16 +163,16 @@ function Dashboard() {
         <h1 className="text-3xl font-bold">Dashboard</h1>
         <Badge variant="secondary">Pro Plan</Badge>
       </div>
-      
+
       <Separator />
-      
+
       <Tabs defaultValue="overview" className="space-y-4">
         <Tabs.List>
           <Tabs.Trigger value="overview">Overview</Tabs.Trigger>
           <Tabs.Trigger value="analytics">Analytics</Tabs.Trigger>
           <Tabs.Trigger value="settings">Settings</Tabs.Trigger>
         </Tabs.List>
-        
+
         <Tabs.Content value="overview">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Card>
@@ -197,6 +195,7 @@ function Dashboard() {
 ## 🎨 Theming & Customization
 
 ### CSS Variables
+
 The design system uses CSS variables for dynamic theming:
 
 ```css
@@ -218,6 +217,7 @@ The design system uses CSS variables for dynamic theming:
 ```
 
 ### Custom Component Variants
+
 Extend existing components with custom variants:
 
 ```tsx
@@ -228,8 +228,8 @@ const CustomButton = ({ className, ...props }) => {
   return (
     <Button
       className={cn(
-        "bg-gradient-to-r from-purple-500 to-pink-500",
-        "hover:from-purple-600 hover:to-pink-600",
+        'bg-gradient-to-r from-purple-500 to-pink-500',
+        'hover:from-purple-600 hover:to-pink-600',
         className
       )}
       {...props}
@@ -241,15 +241,18 @@ const CustomButton = ({ className, ...props }) => {
 ## 🛠️ Development Commands
 
 ### Adding New Components
+
 ```bash
 # Add shadcn/ui components to the library
-nx shadcn:component:add marketplace-ui --args.component=button
-nx shadcn:component:add marketplace-ui --args.component=dialog
-nx shadcn:component:add marketplace-ui --args.component=dropdown-menu
+nx shadcn:component:add marketplace-ui --component=button
+nx shadcn:component:add marketplace-ui --component=dialog
+nx shadcn:component:add marketplace-ui --component=dropdown-menu
 ```
 
 ### Available shadcn/ui Components
+
 Run the add command with any of these components:
+
 - `accordion`, `alert`, `alert-dialog`, `aspect-ratio`
 - `avatar`, `badge`, `breadcrumb`, `button`
 - `calendar`, `card`, `carousel`, `chart`
@@ -264,6 +267,7 @@ Run the add command with any of these components:
 - `toggle-group`, `tooltip`
 
 ### Development Workflow
+
 ```bash
 # Type checking
 nx typecheck marketplace-ui
@@ -281,6 +285,7 @@ nx build marketplace-ui --watch
 ## 📋 Component Guidelines
 
 ### Accessibility
+
 - Use semantic HTML elements
 - Include proper ARIA attributes
 - Support keyboard navigation
@@ -288,12 +293,14 @@ nx build marketplace-ui --watch
 - Provide screen reader support
 
 ### Performance
+
 - Keep bundle size minimal
 - Use React.memo for expensive components
 - Implement proper loading states
 - Optimize re-renders with useMemo/useCallback
 
 ### API Design
+
 - Follow consistent prop naming
 - Use TypeScript for type safety
 - Provide sensible defaults
@@ -302,6 +309,7 @@ nx build marketplace-ui --watch
 ## 🔄 Integration with Other Packages
 
 ### With Frontend (`marketplace-front`)
+
 ```tsx
 // Import components directly
 import { Button, Card } from '@mcp-marketplace/ui';
@@ -319,6 +327,7 @@ function MyPage() {
 ```
 
 ### With Shared Utilities (`marketplace-shared`)
+
 ```tsx
 import { Button } from '@mcp-marketplace/ui';
 import { validateEmail } from '@mcp-marketplace/shared';
@@ -353,6 +362,7 @@ nx test marketplace-ui --coverage
 ```
 
 ### Testing Guidelines
+
 - Test component rendering
 - Test user interactions
 - Test accessibility features
@@ -370,6 +380,7 @@ nx typecheck marketplace-ui && nx build marketplace-ui
 ```
 
 The build output includes:
+
 - Compiled JavaScript modules
 - TypeScript type definitions
 - CSS stylesheets
@@ -378,6 +389,7 @@ The build output includes:
 ## 🤝 Contributing
 
 ### Adding New Components
+
 1. Create feature branch from `main`
 2. Implement utility with tests
 3. Run quality checks:
@@ -393,6 +405,7 @@ The build output includes:
 5. Submit pull request
 
 ### Component Structure
+
 ```
 src/components/ui/
 ├── component-name/

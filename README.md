@@ -105,8 +105,8 @@ nx start:production marketplace-server
 # Database migrations
 nx migration:deploy marketplace-server
 nx migration:revert marketplace-server
-nx migration:generate marketplace-server --args.name=CreateUsers
-nx migration:create marketplace-server --args.name=AddIndexes
+nx migration:generate marketplace-server --name=CreateUsers
+nx migration:create marketplace-server --name=AddIndexes
 nx migration:show marketplace-server
 nx migration:schema:sync marketplace-server
 ```
@@ -115,8 +115,8 @@ nx migration:schema:sync marketplace-server
 
 ```bash
 # Add shadcn/ui components
-nx shadcn:component:add marketplace-ui --args.component=button
-nx shadcn:component:add marketplace-ui --args.component=dialog
+nx shadcn:component:add marketplace-ui --component=button
+nx shadcn:component:add marketplace-ui --component=dialog
 ```
 
 ### Multi-Package Operations
@@ -294,17 +294,17 @@ nx g @nx/react:component MyComponent --project=marketplace-front
 nx g @nx/nest:module my-feature --project=marketplace-server
 
 # Add shadcn/ui component
-nx shadcn:component:add marketplace-ui --args.component=card
+nx shadcn:component:add marketplace-ui --component=card
 ```
 
 ### Database Migrations
 
 ```bash
 # Generate migration from entity changes
-nx migration:generate marketplace-server --args.name=AddUserTable
+nx migration:generate marketplace-server --name=AddUserTable
 
 # Create empty migration
-nx migration:create marketplace-server --args.name=CustomMigration
+nx migration:create marketplace-server --name=CustomMigration
 
 # Run migrations
 nx migration:deploy marketplace-server

@@ -5,32 +5,38 @@ A robust NestJS backend application providing GraphQL APIs, database management,
 ## 🚀 Technology Stack
 
 ### Core Framework
+
 - **NestJS 11.0.0**: Scalable Node.js server framework
 - **TypeScript 5.8.2**: Type-safe server development
 - **Node.js 20**: Latest LTS runtime environment
 
 ### GraphQL & API
+
 - **Apollo Server 4.12.2**: Production-ready GraphQL server
 - **NestJS GraphQL**: Code-first GraphQL schema generation
 - **GraphiQL**: Interactive GraphQL playground
 
 ### Database & ORM
+
 - **TypeORM 0.3.25**: Advanced ORM with migrations
 - **PostgreSQL 15**: Primary relational database
 - **Database Migrations**: Version-controlled schema changes
 - **Custom Schemas**: Multi-tenant database organization
 
 ### Caching & Queues
+
 - **Redis**: High-performance caching and session storage
 - **BullMQ**: Robust job queue processing
 - **IORedis**: Advanced Redis client with clustering support
 
 ### Third-Party Integrations
+
 - **GitHub GraphQL API**: Repository and user data integration
 - **Octokit**: Official GitHub API client
 - **RESTful APIs**: External service integrations
 
 ### Development & Production
+
 - **Hot Reload**: Development server with file watching
 - **Environment Configuration**: Type-safe config management
 - **Health Monitoring**: Application health endpoints
@@ -69,6 +75,7 @@ packages/marketplace-server/
 ## 🎯 Available Targets
 
 ### Development & Runtime
+
 ```bash
 # Start development server
 nx start marketplace-server
@@ -84,6 +91,7 @@ nx build:production marketplace-server
 ```
 
 ### Database Operations
+
 ```bash
 # Deploy pending migrations
 nx migration:deploy marketplace-server
@@ -92,10 +100,10 @@ nx migration:deploy marketplace-server
 nx migration:revert marketplace-server
 
 # Generate migration from entity changes
-nx migration:generate marketplace-server --args.name=CreateUserTable
+nx migration:generate marketplace-server --name=CreateUserTable
 
 # Create empty migration file
-nx migration:create marketplace-server --args.name=AddIndexesToUserTable
+nx migration:create marketplace-server --name=AddIndexesToUserTable
 
 # Show migration status
 nx migration:show marketplace-server
@@ -105,6 +113,7 @@ nx migration:schema:sync marketplace-server
 ```
 
 ### Quality Assurance
+
 ```bash
 # Type checking
 nx typecheck marketplace-server
@@ -128,6 +137,7 @@ nx test marketplace-server --watch
 ## 🛠️ Development Setup
 
 ### Prerequisites
+
 - Node.js 20+ (specified in root `.nvmrc`)
 - Yarn 4.4.0+
 - Docker & Docker Compose
@@ -135,6 +145,7 @@ nx test marketplace-server --watch
 - Redis 6+
 
 ### Quick Start
+
 ```bash
 # Install dependencies (from root)
 yarn install
@@ -152,6 +163,7 @@ nx start marketplace-server
 ```
 
 ### Environment Configuration
+
 Create `.env` file in the root directory:
 
 ```env
@@ -183,6 +195,7 @@ CORS_ORIGIN=http://localhost:4173
 ## 🗄️ Database Architecture
 
 ### Schema Organization
+
 The application uses multiple PostgreSQL schemas for logical separation:
 
 - **`public`**: Default PostgreSQL schema
@@ -190,6 +203,7 @@ The application uses multiple PostgreSQL schemas for logical separation:
 - **`discovery_source`**: Data discovery and integration metadata
 
 ### Entity Structure
+
 ```typescript
 // Core entities example
 @Entity({ schema: 'core', name: 'mcp' })
@@ -209,10 +223,11 @@ export class Mcp extends BaseEntity {
 ```
 
 ### Migration Workflow
+
 ```bash
 # 1. Modify entities
 # 2. Generate migration
-nx migration:generate marketplace-server --args.name=DescriptiveName
+nx migration:generate marketplace-server --name=DescriptiveName
 
 # 3. Review generated migration
 # 4. Deploy to database
@@ -222,6 +237,7 @@ nx migration:deploy marketplace-server
 ## 📊 GraphQL API
 
 ### Schema-First Approach
+
 The server uses NestJS's code-first approach for GraphQL schema generation:
 
 ```typescript
@@ -240,11 +256,14 @@ export class AuthorsResolver {
 ```
 
 ### GraphQL Playground
+
 Access the interactive GraphQL playground at:
+
 - Development: `http://localhost:3000/graphql`
 - Production: Disabled for security
 
 ### Example Queries
+
 ```graphql
 # Get author with posts
 query GetAuthor($id: Int!) {
@@ -264,6 +283,7 @@ query GetAuthor($id: Int!) {
 ## 🔄 Background Jobs & Queues
 
 ### Queue Configuration
+
 ```typescript
 @Module({
   imports: [
@@ -279,6 +299,7 @@ export class QueueModule {}
 ```
 
 ### Job Processing
+
 ```typescript
 @Processor('data-processing')
 export class DataProcessor {
@@ -291,6 +312,7 @@ export class DataProcessor {
 ```
 
 ### Queue Management
+
 ```bash
 # Queue monitoring available via Redis Insight
 # Access at http://localhost:8001 when using docker-compose
@@ -299,6 +321,7 @@ export class DataProcessor {
 ## 🔌 Third-Party Integrations
 
 ### GitHub Integration
+
 ```typescript
 @Injectable()
 export class GithubGraphqlService {
@@ -308,8 +331,9 @@ export class GithubGraphqlService {
 
   async getRepository(owner: string, name: string) {
     const client = this.getGithubGraphqlClient();
-    
-    return await client(`
+
+    return await client(
+      `
       query GetRepository($owner: String!, $name: String!) {
         repository(owner: $owner, name: $name) {
           id
@@ -318,12 +342,15 @@ export class GithubGraphqlService {
           stargazerCount
         }
       }
-    `, { owner, name });
+    `,
+      { owner, name }
+    );
   }
 }
 ```
 
 ### Configuration
+
 ```typescript
 // GitHub service configuration
 @Injectable()
@@ -342,6 +369,7 @@ export class GithubService {
 ## 🏥 Health Monitoring
 
 ### Health Check Endpoints
+
 ```typescript
 @Controller('health')
 export class HealthController {
@@ -367,6 +395,7 @@ export class HealthController {
 ```
 
 ### Available Endpoints
+
 - `GET /v1/health` - General health status
 - `GET /v1/health/database` - Database connectivity
 - `GET /v1/health/redis` - Redis connectivity
@@ -374,6 +403,7 @@ export class HealthController {
 ## 🛡️ Security & Authentication
 
 ### CORS Configuration
+
 ```typescript
 // Configured in main.ts
 app.enableCors({
@@ -383,16 +413,18 @@ app.enableCors({
 ```
 
 ### Environment Validation
+
 ```typescript
 // Type-safe configuration
 export class ConfigService {
   get<T>(key: string, defaultValue?: T): T {
-    return process.env[key] as T || defaultValue;
+    return (process.env[key] as T) || defaultValue;
   }
 }
 ```
 
 ### API Security
+
 - Input validation with class-validator
 - Type safety with TypeScript
 - Environment-based configuration
@@ -401,6 +433,7 @@ export class ConfigService {
 ## 📈 Performance & Optimization
 
 ### Caching Strategy
+
 ```typescript
 @Injectable()
 export class CacheService {
@@ -418,12 +451,14 @@ export class CacheService {
 ```
 
 ### Database Optimization
+
 - Connection pooling with TypeORM
 - Query optimization with proper indexing
 - Schema-based data isolation
 - Migration-driven schema evolution
 
 ### Build Optimization
+
 - SWC for fast TypeScript compilation
 - Tree shaking for smaller bundles
 - Development vs production configurations
@@ -431,6 +466,7 @@ export class CacheService {
 ## 🐳 Docker & Deployment
 
 ### Development Environment
+
 ```yaml
 # docker-compose.yml
 services:
@@ -447,10 +483,11 @@ services:
     image: redis/redis-stack:latest
     ports:
       - '6378:6379'
-      - '8001:8001'  # Redis Insight UI
+      - '8001:8001' # Redis Insight UI
 ```
 
 ### Production Deployment
+
 ```dockerfile
 # Multi-stage build for optimized production image
 FROM node:20-alpine
@@ -472,6 +509,7 @@ CMD ["yarn", "nx", "start", "marketplace-server", "--configuration=production"]
 ## 🧪 Testing Strategy
 
 ### Unit Testing
+
 ```typescript
 // Example test file
 describe('AuthorsResolver', () => {
@@ -493,6 +531,7 @@ describe('AuthorsResolver', () => {
 ```
 
 ### Integration Testing
+
 ```typescript
 // Database integration tests
 describe('Database Integration', () => {
@@ -514,6 +553,7 @@ describe('Database Integration', () => {
 ```
 
 ### Running Tests
+
 ```bash
 # Unit tests
 nx test marketplace-server
@@ -531,6 +571,7 @@ nx test marketplace-server --coverage
 ## 🔧 Module Development
 
 ### Creating New Modules
+
 ```bash
 # Generate new module
 nx g @nx/nest:module feature-name --project=marketplace-server
@@ -543,6 +584,7 @@ nx g @nx/nest:service feature-name --project=marketplace-server
 ```
 
 ### Module Structure
+
 ```typescript
 @Module({
   imports: [
@@ -559,6 +601,7 @@ export class FeatureModule {}
 ```
 
 ### GraphQL Resolver Pattern
+
 ```typescript
 @Resolver(() => EntityModel)
 export class EntityResolver {
@@ -581,6 +624,7 @@ export class EntityResolver {
 ## 📊 Monitoring & Logging
 
 ### Structured Logging
+
 ```typescript
 import { Logger } from '@nestjs/common';
 
@@ -590,29 +634,36 @@ export class MyService {
 
   async processData(data: any) {
     this.logger.log('Processing data', { dataId: data.id });
-    
+
     try {
       // Processing logic
       this.logger.log('Data processed successfully', { dataId: data.id });
     } catch (error) {
-      this.logger.error('Data processing failed', error.stack, { dataId: data.id });
+      this.logger.error('Data processing failed', error.stack, {
+        dataId: data.id,
+      });
     }
   }
 }
 ```
 
 ### Performance Monitoring
+
 ```typescript
 // Custom decorator for performance monitoring
 export function Track() {
-  return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  return function (
+    target: any,
+    propertyKey: string,
+    descriptor: PropertyDescriptor
+  ) {
     const originalMethod = descriptor.value;
-    
+
     descriptor.value = async function (...args: any[]) {
       const start = Date.now();
       const result = await originalMethod.apply(this, args);
       const duration = Date.now() - start;
-      
+
       console.log(`${propertyKey} executed in ${duration}ms`);
       return result;
     };
@@ -623,6 +674,7 @@ export function Track() {
 ## 🤝 Contributing
 
 ### Development Workflow
+
 1. Create feature branch from `main`
 2. Implement changes with tests
 3. Run quality checks:
@@ -636,6 +688,7 @@ export function Track() {
 6. Submit pull request
 
 ### Code Standards
+
 - Use TypeScript for type safety
 - Follow NestJS architectural patterns
 - Write comprehensive tests
@@ -644,6 +697,7 @@ export function Track() {
 - Add logging for debugging
 
 ### Database Migration Guidelines
+
 - Always create migrations for schema changes
 - Use descriptive migration names
 - Test migrations in development
@@ -658,4 +712,4 @@ export function Track() {
 - [BullMQ Documentation](https://docs.bullmq.io)
 - [PostgreSQL Documentation](https://postgresql.org/docs)
 - [Redis Documentation](https://redis.io/documentation)
-- [GitHub GraphQL API](https://docs.github.com/en/graphql) 
+- [GitHub GraphQL API](https://docs.github.com/en/graphql)
